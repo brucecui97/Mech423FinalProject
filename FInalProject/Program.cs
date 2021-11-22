@@ -40,14 +40,50 @@ namespace FInalProject
             // Verify - compare two images if the same person or not.
 
 
-            Verify(client, IMAGE_BASE_URL, RECOGNITION_MODEL4).Wait();
+            //Verify(client, IMAGE_BASE_URL, RECOGNITION_MODEL4).Wait();
 
+            Boolean isSameFace = determineIsSameFace(client, "charles1.jpg", "selina1.jpg", RECOGNITION_MODEL4).Result;
+            Console.WriteLine("is Same Face result is " + isSameFace);
+            
             Console.WriteLine("========DELETE PERSON GROUP========");
             Console.WriteLine();
             ///DeletePersonGroup(client, personGroupId).Wait();
             // </snippet_persongroup_delete>
 
             Console.WriteLine("End of quickstart.");
+        }
+
+        public async static Task<Boolean> determineIsSameFace(IFaceClient client, string image1url, string image2url, string recognitionModel03) {
+
+            List<string> targetImageFileNames = new List<string> {image1url};
+            string sourceImageFileName1 = image2url;
+
+
+            List<Guid> targetFaceIds = new List<Guid>();
+            foreach (var imageFileName in targetImageFileNames)
+            {
+                // Detect faces from target image url.
+                List<DetectedFace> detectedFaces = await DetectFaceRecognize(client, imageFileName, recognitionModel03);
+                targetFaceIds.Add(detectedFaces[0].FaceId.Value);
+                Console.WriteLine($"{detectedFaces.Count} faces detected from image `{imageFileName}`.");
+            }
+
+            // Detect faces from source image file 1.
+            List<DetectedFace> detectedFaces1 = await DetectFaceRecognize(client, sourceImageFileName1, recognitionModel03);
+            Console.WriteLine($"{detectedFaces1.Count} faces detected from image `{sourceImageFileName1}`.");
+            Guid sourceFaceId1 = detectedFaces1[0].FaceId.Value;
+
+
+            // Verification example for faces of the same person.
+            VerifyResult verifyResult1 = await client.Face.VerifyFaceToFaceAsync(sourceFaceId1, targetFaceIds[0]);
+            Console.WriteLine(
+                verifyResult1.IsIdentical
+                    ? $"Faces from {sourceImageFileName1} & {targetImageFileNames[0]} are of the same (Positive) person, similarity confidence: {verifyResult1.Confidence}."
+                    : $"Faces from {sourceImageFileName1} & {targetImageFileNames[0]} are of different (Negative) persons, similarity confidence: {verifyResult1.Confidence}.");
+
+            Console.WriteLine();
+            return verifyResult1.IsIdentical;
+
         }
 
         public static async Task Verify(IFaceClient client, string url, string recognitionModel03)
