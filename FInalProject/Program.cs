@@ -32,55 +32,15 @@ namespace FInalProject
         {
 
             Console.WriteLine("test");
-            // <snippet_detect_models>
-            // Recognition model 4 was released in 2021 February.
-            // It is recommended since its accuracy is improved
-            // on faces wearing masks compared with model 3,
-            // and its overall accuracy is improved compared
-            // with models 1 and 2.
+         
             const string RECOGNITION_MODEL4 = RecognitionModel.Recognition04;
-            // </snippet_detect_models>
-
-            // <snippet_maincalls>
-            // Authenticate.
+      
             IFaceClient client = Authenticate(ENDPOINT, SUBSCRIPTION_KEY);
-            // </snippet_client>
-
-            // Detect - get features from faces.
-
-            //DetectFaceExtract(client, IMAGE_BASE_URL, RECOGNITION_MODEL4).Wait();
-
-            // Find Similar - find a similar face from a list of faces.
-
-            //FindSimilar(client, IMAGE_BASE_URL, RECOGNITION_MODEL4).Wait();
-
+        
             // Verify - compare two images if the same person or not.
 
             Verify(client, IMAGE_BASE_URL, RECOGNITION_MODEL4).Wait();
 
-            // Identify - recognize a face(s) in a person group (a person group is created in this example).
-            
-            //IdentifyInPersonGroup(client, IMAGE_BASE_URL, RECOGNITION_MODEL4).Wait();
-            
-            // LargePersonGroup - create, then get data.
-            
-            //LargePersonGroup(client, IMAGE_BASE_URL, RECOGNITION_MODEL4).Wait();
-            
-            // Group faces - automatically group similar faces.
-            
-            //Group(client, IMAGE_BASE_URL, RECOGNITION_MODEL4).Wait();
-            
-            // FaceList - create a face list, then get data
-            // </snippet_maincalls>
-
-            //FaceListOperations(client, IMAGE_BASE_URL).Wait();
-            
-            // Large FaceList - create a large face list, then get data
-            
-            //LargeFaceListOperations(client, IMAGE_BASE_URL).Wait();
-
-            // <snippet_persongroup_delete>
-            // At end, delete person groups in both regions (since testing only)
             Console.WriteLine("========DELETE PERSON GROUP========");
             Console.WriteLine();
             ///DeletePersonGroup(client, personGroupId).Wait();
