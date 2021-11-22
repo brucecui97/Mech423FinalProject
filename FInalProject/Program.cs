@@ -234,7 +234,7 @@ namespace FInalProject
             // We use detection model 3 because we are not retrieving attributes.
             IList<DetectedFace> detectedFaces;
             Guid? faceId1 = null;
-            using (FileStream stream = new FileStream("C:\\Users\\brucecui\\Pictures\\Camera Roll\\" + url, FileMode.Open))
+            using (FileStream stream = new FileStream(IMAGE_BASE_URL + url, FileMode.Open))
             {
                 //faceId1 = faceClient.Face.DetectWithStreamAsync(stream, true, detectionModel: DetectionModel.Detection03, recognitionModel: recognition_model).Result[0].FaceId;
                 detectedFaces = await faceClient.Face.DetectWithStreamAsync(stream, true, detectionModel: DetectionModel.Detection03, recognitionModel: recognition_model);
