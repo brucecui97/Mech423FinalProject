@@ -53,10 +53,10 @@ namespace FInalProject
             Console.WriteLine("End of quickstart.");
         }
 
-        public async static Task<Boolean> determineIsSameFace(IFaceClient client, string image1url, string image2url, string recognitionModel03) {
+        public async static Task<Boolean> determineIsSameFace(IFaceClient client, string image1Name, string image2Name, string recognitionModel03) {
 
-            List<string> targetImageFileNames = new List<string> {image1url};
-            string sourceImageFileName1 = image2url;
+            List<string> targetImageFileNames = new List<string> {image1Name};
+            string sourceImageFileName1 = image2Name;
 
 
             List<Guid> targetFaceIds = new List<Guid>();
@@ -110,13 +110,13 @@ namespace FInalProject
         // The field `faceId` in returned `DetectedFace`s will be used in Face - Find Similar, Face - Verify. and Face - Identify.
         // It will expire 24 hours after the detection call.
         // <snippet_face_detect_recognize>
-        private static async Task<List<DetectedFace>> DetectFaceRecognize(IFaceClient faceClient, string url, string recognition_model)
+        private static async Task<List<DetectedFace>> DetectFaceRecognize(IFaceClient faceClient, string imageName, string recognition_model)
         {
             // Detect faces from image URL. Since only recognizing, use the recognition model 1.
             // We use detection model 3 because we are not retrieving attributes.
             IList<DetectedFace> detectedFaces;
             Guid? faceId1 = null;
-            using (FileStream stream = new FileStream(IMAGE_BASE_URL + url, FileMode.Open))
+            using (FileStream stream = new FileStream(IMAGE_BASE_URL + imageName, FileMode.Open))
             {
                 //faceId1 = faceClient.Face.DetectWithStreamAsync(stream, true, detectionModel: DetectionModel.Detection03, recognitionModel: recognition_model).Result[0].FaceId;
                 detectedFaces = await faceClient.Face.DetectWithStreamAsync(stream, true, detectionModel: DetectionModel.Detection03, recognitionModel: recognition_model);
@@ -124,7 +124,7 @@ namespace FInalProject
             }
 
             //IList<DetectedFace> detectedFaces = await faceClient.Face.DetectWithUrlAsync(url, recognitionModel: recognition_model, detectionModel: DetectionModel.Detection03);
-            Console.WriteLine($"{detectedFaces.Count} face(s) detected from image `{Path.GetFileName(url)}`");
+            Console.WriteLine($"{detectedFaces.Count} face(s) detected from image `{Path.GetFileName(imageName)}`");
             return detectedFaces.ToList();
         }
 
