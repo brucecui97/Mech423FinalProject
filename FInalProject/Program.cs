@@ -55,9 +55,10 @@ namespace FInalProject
             Console.WriteLine("========VERIFY========");
             Console.WriteLine();
 
-            List<string> targetImageFileNames = new List<string> { "bruce2.jpg"};
-            string sourceImageFileName1 = "Family1-Dad3.jpg";
-            string sourceImageFileName2 = "Family1-Son1.jpg";
+            List<string> targetImageFileNames = new List<string> { "bruce1.jpg"};
+            string sourceImageFileName1 = "bruce2.jpg";
+            string sourceImageFileName2 = "charles1.jpg";
+            string sourceImageFileName3 = "selina1.jpg";
 
 
             List<Guid> targetFaceIds = new List<Guid>();
@@ -70,14 +71,19 @@ namespace FInalProject
             }
 
             // Detect faces from source image file 1.
-            List<DetectedFace> detectedFaces1 = await DetectFaceRecognize(client, $"{url}{sourceImageFileName1} ", recognitionModel03);
+            List<DetectedFace> detectedFaces1 = await DetectFaceRecognize(client, sourceImageFileName1, recognitionModel03);
             Console.WriteLine($"{detectedFaces1.Count} faces detected from image `{sourceImageFileName1}`.");
             Guid sourceFaceId1 = detectedFaces1[0].FaceId.Value;
 
             // Detect faces from source image file 2.
-            List<DetectedFace> detectedFaces2 = await DetectFaceRecognize(client, $"{url}{sourceImageFileName2} ", recognitionModel03);
+            List<DetectedFace> detectedFaces2 = await DetectFaceRecognize(client, sourceImageFileName2, recognitionModel03);
             Console.WriteLine($"{detectedFaces2.Count} faces detected from image `{sourceImageFileName2}`.");
             Guid sourceFaceId2 = detectedFaces2[0].FaceId.Value;
+
+            // Detect faces from source image file 2.
+            List<DetectedFace> detectedFaces3 = await DetectFaceRecognize(client, sourceImageFileName3, recognitionModel03);
+            Console.WriteLine($"{detectedFaces2.Count} faces detected from image `{sourceImageFileName3}`.");
+            Guid sourceFaceId3 = detectedFaces2[0].FaceId.Value;
 
             // Verification example for faces of the same person.
             VerifyResult verifyResult1 = await client.Face.VerifyFaceToFaceAsync(sourceFaceId1, targetFaceIds[0]);
@@ -92,6 +98,12 @@ namespace FInalProject
                 verifyResult2.IsIdentical
                     ? $"Faces from {sourceImageFileName2} & {targetImageFileNames[0]} are of the same (Negative) person, similarity confidence: {verifyResult2.Confidence}."
                     : $"Faces from {sourceImageFileName2} & {targetImageFileNames[0]} are of different (Positive) persons, similarity confidence: {verifyResult2.Confidence}.");
+
+            VerifyResult verifyResult3 = await client.Face.VerifyFaceToFaceAsync(sourceFaceId3, targetFaceIds[0]);
+            Console.WriteLine(
+                verifyResult3.IsIdentical
+                    ? $"Faces from {sourceImageFileName3} & {targetImageFileNames[0]} are of the same (Positive) person, similarity confidence: {verifyResult3.Confidence}."
+                    : $"Faces from {sourceImageFileName3} & {targetImageFileNames[0]} are of different (Negative) persons, similarity confidence: {verifyResult3.Confidence}.");
 
             Console.WriteLine();
         }
