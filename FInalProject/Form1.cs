@@ -41,6 +41,8 @@ namespace FInalProject
             Application.Idle += new EventHandler(delegate (object sender, EventArgs e)
             {  //run this until application closed (close button click on image viewer)
                 viewer.Image = capture.QueryFrame(); //draw the image obtained from camera
+
+                //so probably do some authentication code here and send open if detect??
             });
             viewer.ShowDialog(); //show the image viewer
         }
