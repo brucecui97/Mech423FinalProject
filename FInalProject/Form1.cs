@@ -44,7 +44,7 @@ namespace FInalProject
              client = Authenticate(ENDPOINT, SUBSCRIPTION_KEY);
         }
 
-        public  static Boolean determineIsSameFace(IFaceClient client, string image1Name, string image2Name, string recognitionModel03)
+        public async Task<Boolean> determineIsSameFace(IFaceClient client, string image1Name, string image2Name, string recognitionModel03)
         {
 
             List<string> targetImageFileNames = new List<string> { image1Name };
@@ -74,6 +74,7 @@ namespace FInalProject
                     : $"Faces from {sourceImageFileName1} & {targetImageFileNames[0]} are of different (Negative) persons, similarity confidence: {verifyResult1.Confidence}.");
 
             Console.WriteLine();
+            debugTxtBox.AppendText("is Same Face result is " + verifyResult1.IsIdentical);
             return verifyResult1.IsIdentical;
 
         }
@@ -131,13 +132,16 @@ namespace FInalProject
             Console.WriteLine($"Deleted the person group {personGroupId}.");
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
-
             debugTxtBox.AppendText("clicked button");
-            Boolean isSameFace = determineIsSameFace(client, "charles1.jpg", "selina1.jpg", RecognitionModel.Recognition04);
-            debugTxtBox.AppendText("is Same Face result is " + isSameFace);
+            await determineIsSameFace(client, "charles1.jpg", "selina1.jpg", RecognitionModel.Recognition04);
+            debugTxtBox.AppendText("called the determienIsSameFace method now waiting");
+        }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            debugTxtBox.AppendText("clicked button 2");
 
         }
         ///// <summary>
