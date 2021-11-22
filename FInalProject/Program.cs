@@ -30,17 +30,10 @@ namespace FInalProject
 
         static void Main(string[] args)
         {
-
-            Console.WriteLine("test");
-         
             const string RECOGNITION_MODEL4 = RecognitionModel.Recognition04;
       
             IFaceClient client = Authenticate(ENDPOINT, SUBSCRIPTION_KEY);
-        
-            // Verify - compare two images if the same person or not.
 
-
-            //Verify(client, IMAGE_BASE_URL, RECOGNITION_MODEL4).Wait();
 
             Boolean isSameFace = determineIsSameFace(client, "charles1.jpg", "selina1.jpg", RECOGNITION_MODEL4).Result;
             Console.WriteLine("is Same Face result is " + isSameFace);
@@ -139,15 +132,5 @@ namespace FInalProject
             await client.PersonGroup.DeleteAsync(personGroupId);
             Console.WriteLine($"Deleted the person group {personGroupId}.");
         }
-        ///// <summary>
-        ///// The main entry point for the application.
-        ///// </summary>
-        //[STAThread]
-        //static void Main()
-        //{
-        //    Application.EnableVisualStyles();
-        //    Application.SetCompatibleTextRenderingDefault(false);
-        //    Application.Run(new Form1());
-        //}
     }
 }
