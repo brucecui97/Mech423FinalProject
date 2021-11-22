@@ -39,6 +39,7 @@ namespace FInalProject
         
             // Verify - compare two images if the same person or not.
 
+
             Verify(client, IMAGE_BASE_URL, RECOGNITION_MODEL4).Wait();
 
             Console.WriteLine("========DELETE PERSON GROUP========");
@@ -231,7 +232,16 @@ namespace FInalProject
         {
             // Detect faces from image URL. Since only recognizing, use the recognition model 1.
             // We use detection model 3 because we are not retrieving attributes.
-            IList<DetectedFace> detectedFaces = await faceClient.Face.DetectWithUrlAsync(url, recognitionModel: recognition_model, detectionModel: DetectionModel.Detection03);
+            IList<DetectedFace> detectedFaces;
+            Guid? faceId1 = null;
+            using (FileStream stream = new FileStream("C:\\Users\\brucecui\\Pictures\\Camera Roll\\bruce2.jpg", FileMode.Open))
+            {
+                //faceId1 = faceClient.Face.DetectWithStreamAsync(stream, true, detectionModel: DetectionModel.Detection03, recognitionModel: recognition_model).Result[0].FaceId;
+                detectedFaces = await faceClient.Face.DetectWithStreamAsync(stream, true, detectionModel: DetectionModel.Detection03, recognitionModel: recognition_model);
+                //Console.WriteLine(faceId1);
+            }
+
+            //IList<DetectedFace> detectedFaces = await faceClient.Face.DetectWithUrlAsync(url, recognitionModel: recognition_model, detectionModel: DetectionModel.Detection03);
             Console.WriteLine($"{detectedFaces.Count} face(s) detected from image `{Path.GetFileName(url)}`");
             return detectedFaces.ToList();
         }
