@@ -19,7 +19,7 @@ namespace FInalProject
         // <snippet_image_url>
         // Used for all examples.
         // URL for the images.
-        const string IMAGE_BASE_URL = "https://csdx.blob.core.windows.net/resources/Face/Images/";
+        const string IMAGE_BASE_URL = "C:\\Users\\brucecui\\Pictures\\Camera Roll\\";
         // </snippet_image_url>
 
         // <snippet_creds>
@@ -55,7 +55,7 @@ namespace FInalProject
             Console.WriteLine("========VERIFY========");
             Console.WriteLine();
 
-            List<string> targetImageFileNames = new List<string> { "Family1-Dad1.jpg", "Family1-Dad2.jpg" };
+            List<string> targetImageFileNames = new List<string> { "bruce2.jpg"};
             string sourceImageFileName1 = "Family1-Dad3.jpg";
             string sourceImageFileName2 = "Family1-Son1.jpg";
 
@@ -64,7 +64,7 @@ namespace FInalProject
             foreach (var imageFileName in targetImageFileNames)
             {
                 // Detect faces from target image url.
-                List<DetectedFace> detectedFaces = await DetectFaceRecognize(client, $"{url}{imageFileName} ", recognitionModel03);
+                List<DetectedFace> detectedFaces = await DetectFaceRecognize(client, imageFileName, recognitionModel03);
                 targetFaceIds.Add(detectedFaces[0].FaceId.Value);
                 Console.WriteLine($"{detectedFaces.Count} faces detected from image `{imageFileName}`.");
             }
@@ -234,7 +234,7 @@ namespace FInalProject
             // We use detection model 3 because we are not retrieving attributes.
             IList<DetectedFace> detectedFaces;
             Guid? faceId1 = null;
-            using (FileStream stream = new FileStream("C:\\Users\\brucecui\\Pictures\\Camera Roll\\bruce2.jpg", FileMode.Open))
+            using (FileStream stream = new FileStream("C:\\Users\\brucecui\\Pictures\\Camera Roll\\" + url, FileMode.Open))
             {
                 //faceId1 = faceClient.Face.DetectWithStreamAsync(stream, true, detectionModel: DetectionModel.Detection03, recognitionModel: recognition_model).Result[0].FaceId;
                 detectedFaces = await faceClient.Face.DetectWithStreamAsync(stream, true, detectionModel: DetectionModel.Detection03, recognitionModel: recognition_model);
