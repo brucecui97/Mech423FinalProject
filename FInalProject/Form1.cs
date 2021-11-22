@@ -2,15 +2,15 @@
 using Microsoft.Azure.CognitiveServices.Vision.Face.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Emgu.CV;
+using Emgu.CV.UI;
+using Emgu.CV.Structure;
+using System.Drawing;
 namespace FInalProject
 {
     public partial class Form1 : Form
@@ -36,12 +36,19 @@ namespace FInalProject
         public Form1()
         {
             InitializeComponent();
+            ImageViewer viewer = new ImageViewer(); //create an image viewer
+            Capture capture = new Capture(); //create a camera captue
+            Application.Idle += new EventHandler(delegate (object sender, EventArgs e)
+            {  //run this until application closed (close button click on image viewer)
+                viewer.Image = capture.QueryFrame(); //draw the image obtained from camera
+            });
+            viewer.ShowDialog(); //show the image viewer
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-      
-             client = Authenticate(ENDPOINT, SUBSCRIPTION_KEY);
+
+            client = Authenticate(ENDPOINT, SUBSCRIPTION_KEY);
         }
 
         public async Task<Boolean> determineIsSameFace(IFaceClient client, string image1Name, string image2Name, string recognitionModel03)
@@ -49,7 +56,6 @@ namespace FInalProject
 
             List<string> targetImageFileNames = new List<string> { image1Name };
             string sourceImageFileName1 = image2Name;
-
 
             List<Guid> targetFaceIds = new List<Guid>();
             foreach (var imageFileName in targetImageFileNames)
@@ -105,17 +111,12 @@ namespace FInalProject
         // <snippet_face_detect_recognize>
         private async static Task<List<DetectedFace>> DetectFaceRecognize(IFaceClient faceClient, string imageName, string recognition_model)
         {
-            // Detect faces from image URL. Since only recognizing, use the recognition model 1.
-            // We use detection model 3 because we are not retrieving attributes.
+ 
             IList<DetectedFace> detectedFaces;
             using (FileStream stream = new FileStream(IMAGE_BASE_URL + imageName, FileMode.Open))
             {
-                //faceId1 = faceClient.Face.DetectWithStreamAsync(stream, true, detectionModel: DetectionModel.Detection03, recognitionModel: recognition_model).Result[0].FaceId;
                 detectedFaces = await faceClient.Face.DetectWithStreamAsync(stream, true, detectionModel: DetectionModel.Detection03, recognitionModel: recognition_model);
-                //Console.WriteLine(faceId1);
             }
-
-            //IList<DetectedFace> detectedFaces = await faceClient.Face.DetectWithUrlAsync(url, recognitionModel: recognition_model, detectionModel: DetectionModel.Detection03);
             Console.WriteLine($"{detectedFaces.Count} face(s) detected from image `{Path.GetFileName(imageName)}`");
             return detectedFaces.ToList();
         }
@@ -144,16 +145,6 @@ namespace FInalProject
             debugTxtBox.AppendText("clicked button 2");
 
         }
-        ///// <summary>
-        ///// The main entry point for the application.
-        ///// </summary>
-        //[STAThread]
-        //static void Main()
-        //{
-        //    Application.EnableVisualStyles();
-        //    Application.SetCompatibleTextRenderingDefault(false);
-        //    Application.Run(new Form1());
-        //}
     }
 }
 

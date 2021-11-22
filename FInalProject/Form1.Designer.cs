@@ -38,7 +38,7 @@ namespace FInalProject
             // 
             // debugTxtBox
             // 
-            this.debugTxtBox.Location = new System.Drawing.Point(431, 138);
+            this.debugTxtBox.Location = new System.Drawing.Point(649, 45);
             this.debugTxtBox.Multiline = true;
             this.debugTxtBox.Name = "debugTxtBox";
             this.debugTxtBox.Size = new System.Drawing.Size(100, 152);
@@ -46,7 +46,7 @@ namespace FInalProject
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(344, 99);
+            this.button1.Location = new System.Drawing.Point(649, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -56,7 +56,7 @@ namespace FInalProject
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(149, 225);
+            this.button2.Location = new System.Drawing.Point(12, 54);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 2;
