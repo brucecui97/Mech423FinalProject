@@ -9,8 +9,6 @@ using System.Windows.Forms;
 
 using Emgu.CV;
 using Emgu.CV.UI;
-using Emgu.CV.Structure;
-using System.Drawing;
 namespace FInalProject
 {
     public partial class Form1 : Form
@@ -95,7 +93,6 @@ namespace FInalProject
         }
 
 
-
         // <snippet_auth>
         /*
 		 *	AUTHENTICATE
@@ -149,20 +146,7 @@ namespace FInalProject
             debugTxtBox.AppendText("called the determienIsSameFace method now waiting");
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            debugTxtBox.AppendText("clicked button 2");
-
-            //ImageViewer viewer = new ImageViewer(); //create an image viewer
-            //Capture capture = new Capture(); //create a camera captue
-
-            //viewer.Image = capture.QueryFrame(); //draw the image obtained from camera
-
-            //IImage myImage = viewer.Image;
-            //viewer.Show();
-            //myImage.Save("test1.jpg");
-        }
-
+ 
         private async void takePictureButton_Click(object sender, EventArgs e)
         {
             viewer.Image.Save("test1.jpg");
