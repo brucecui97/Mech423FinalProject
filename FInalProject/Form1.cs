@@ -32,7 +32,7 @@ namespace FInalProject
         ImageViewer viewer = new ImageViewer(); //create an image viewer
         // </snippet_creds>
 
-        IFaceClient client;
+        IFaceClient client = Authenticate(ENDPOINT, SUBSCRIPTION_KEY);
         public Form1()
         {
             InitializeComponent();
@@ -40,8 +40,6 @@ namespace FInalProject
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
-            client = Authenticate(ENDPOINT, SUBSCRIPTION_KEY);
 
             comboBoxCOMPorts.Items.Clear();
             comboBoxCOMPorts.Items.AddRange(SerialPort.GetPortNames());
