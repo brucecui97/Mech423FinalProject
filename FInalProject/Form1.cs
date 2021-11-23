@@ -105,7 +105,6 @@ namespace FInalProject
 
         }
 
-
         // <snippet_auth>
         /*
 		 *	AUTHENTICATE
@@ -150,13 +149,6 @@ namespace FInalProject
         {
             await client.PersonGroup.DeleteAsync(personGroupId);
             Console.WriteLine($"Deleted the person group {personGroupId}.");
-        }
-
-        private async void button1_Click(object sender, EventArgs e)
-        {
-            debugTxtBox.AppendText("clicked button");
-            await determineIsSameFace(client, "charles1.jpg", "selina1.jpg", RecognitionModel.Recognition04);
-            debugTxtBox.AppendText("called the determienIsSameFace method now waiting");
         }
 
         private async void takePictureButton_Click(object sender, EventArgs e)

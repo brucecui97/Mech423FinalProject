@@ -32,7 +32,6 @@ namespace FInalProject
             this.components = new System.ComponentModel.Container();
             this.debugTxtBox = new System.Windows.Forms.TextBox();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.takePictureButton = new System.Windows.Forms.Button();
             this.comboBoxCOMPorts = new System.Windows.Forms.ComboBox();
             this.openPortButton = new System.Windows.Forms.Button();
@@ -46,16 +45,6 @@ namespace FInalProject
             this.debugTxtBox.ReadOnly = true;
             this.debugTxtBox.Size = new System.Drawing.Size(100, 152);
             this.debugTxtBox.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(649, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // takePictureButton
             // 
@@ -94,7 +83,6 @@ namespace FInalProject
             this.Controls.Add(this.openPortButton);
             this.Controls.Add(this.comboBoxCOMPorts);
             this.Controls.Add(this.takePictureButton);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.debugTxtBox);
             this.KeyPreview = true;
             this.Name = "Form1";
@@ -110,7 +98,6 @@ namespace FInalProject
 
         private System.Windows.Forms.TextBox debugTxtBox;
         private System.IO.Ports.SerialPort serialPort1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button takePictureButton;
         private System.Windows.Forms.ComboBox comboBoxCOMPorts;
         private System.Windows.Forms.Button openPortButton;
