@@ -34,6 +34,7 @@ namespace FInalProject
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.takePictureButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // debugTxtBox
@@ -64,11 +65,22 @@ namespace FInalProject
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // takePictureButton
+            // 
+            this.takePictureButton.Location = new System.Drawing.Point(0, 0);
+            this.takePictureButton.Name = "takePictureButton";
+            this.takePictureButton.Size = new System.Drawing.Size(75, 23);
+            this.takePictureButton.TabIndex = 3;
+            this.takePictureButton.Text = "takePicture";
+            this.takePictureButton.UseVisualStyleBackColor = true;
+            this.takePictureButton.Click += new System.EventHandler(this.takePictureButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.takePictureButton);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.debugTxtBox);
@@ -86,6 +98,7 @@ namespace FInalProject
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button takePictureButton;
     }
 }
 

@@ -23,30 +23,20 @@ namespace FInalProject
         // <snippet_image_url>
         // Used for all examples.
         // URL for the images.
-        const string IMAGE_BASE_URL = "C:\\Users\\brucecui\\Pictures\\Camera Roll\\";
+        const string IMAGE_BASE_URL = "D:\\mech421\\Mech423Lab3\\FInalProject\\FInalProject\\bin\\Debug\\";
         // </snippet_image_url>
 
         // <snippet_creds>
         // From your Face subscription in the Azure portal, get your subscription key and endpoint.
         const string SUBSCRIPTION_KEY = "8c5dee6f837b4d6cbd809e64b84f5ac2";
         const string ENDPOINT = "https://testfacemech423ubc.cognitiveservices.azure.com/";
+        ImageViewer viewer = new ImageViewer(); //create an image viewer
         // </snippet_creds>
 
         IFaceClient client;
         public Form1()
         {
             InitializeComponent();
-            ImageViewer viewer = new ImageViewer(); //create an image viewer
-            Capture capture = new Capture(); //create a camera captue
-            Application.Idle += new EventHandler(delegate (object sender, EventArgs e)
-            {  //run this until application closed (close button click on image viewer)
-                viewer.Image = capture.QueryFrame(); //draw the image obtained from camera
-
-                IImage myImage = viewer.Image;
-                myImage.Save("test.jpg");
-                //so probably do some authentication code here and send open if detect??
-            });
-            viewer.ShowDialog(); //show the image viewer
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -148,6 +138,30 @@ namespace FInalProject
         {
             debugTxtBox.AppendText("clicked button 2");
 
+            //ImageViewer viewer = new ImageViewer(); //create an image viewer
+            //Capture capture = new Capture(); //create a camera captue
+
+            //viewer.Image = capture.QueryFrame(); //draw the image obtained from camera
+
+            //IImage myImage = viewer.Image;
+            //viewer.Show();
+            //myImage.Save("test1.jpg");
+
+            
+            Capture capture = new Capture(); //create a camera captue
+            Application.Idle += new EventHandler(delegate (object o, EventArgs s)
+            {  //run this until application closed (close button click on image viewer)
+                viewer.Image = capture.QueryFrame(); //draw the image obtained from camera
+
+            });
+            viewer.Show(); //show the image viewer
+
+
+        }
+
+        private void takePictureButton_Click(object sender, EventArgs e)
+        {
+            viewer.Image.Save("test1.jpg");
         }
     }
 }
