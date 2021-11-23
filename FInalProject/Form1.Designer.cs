@@ -34,6 +34,8 @@ namespace FInalProject
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.takePictureButton = new System.Windows.Forms.Button();
+            this.comboBoxCOMPorts = new System.Windows.Forms.ComboBox();
+            this.openPortButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // debugTxtBox
@@ -64,11 +66,32 @@ namespace FInalProject
             this.takePictureButton.UseVisualStyleBackColor = true;
             this.takePictureButton.Click += new System.EventHandler(this.takePictureButton_Click);
             // 
+            // comboBoxCOMPorts
+            // 
+            this.comboBoxCOMPorts.FormattingEnabled = true;
+            this.comboBoxCOMPorts.Location = new System.Drawing.Point(70, 158);
+            this.comboBoxCOMPorts.Name = "comboBoxCOMPorts";
+            this.comboBoxCOMPorts.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxCOMPorts.TabIndex = 4;
+            this.comboBoxCOMPorts.SelectedIndexChanged += new System.EventHandler(this.comboBoxCOMPorts_SelectedIndexChanged);
+            // 
+            // openPortButton
+            // 
+            this.openPortButton.Location = new System.Drawing.Point(219, 159);
+            this.openPortButton.Name = "openPortButton";
+            this.openPortButton.Size = new System.Drawing.Size(185, 23);
+            this.openPortButton.TabIndex = 5;
+            this.openPortButton.Text = "open Serial Port";
+            this.openPortButton.UseVisualStyleBackColor = true;
+            this.openPortButton.Click += new System.EventHandler(this.openPortButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.openPortButton);
+            this.Controls.Add(this.comboBoxCOMPorts);
             this.Controls.Add(this.takePictureButton);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.debugTxtBox);
@@ -86,6 +109,8 @@ namespace FInalProject
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button takePictureButton;
+        private System.Windows.Forms.ComboBox comboBoxCOMPorts;
+        private System.Windows.Forms.Button openPortButton;
     }
 }
 

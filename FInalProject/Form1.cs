@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO.Ports;
 
 using Emgu.CV;
 using Emgu.CV.UI;
@@ -41,6 +42,13 @@ namespace FInalProject
         {
 
             client = Authenticate(ENDPOINT, SUBSCRIPTION_KEY);
+
+            comboBoxCOMPorts.Items.Clear();
+            comboBoxCOMPorts.Items.AddRange(SerialPort.GetPortNames());
+            if (comboBoxCOMPorts.Items.Count == 0)
+                comboBoxCOMPorts.Text = "No COM ports!";
+            else
+                comboBoxCOMPorts.SelectedIndex = 0;
 
             Capture capture = new Capture(); //create a camera captue
             Application.Idle += new EventHandler(delegate (object o, EventArgs s)
@@ -155,12 +163,35 @@ namespace FInalProject
             debugTxtBox.AppendText("called the determienIsSameFace method now waiting");
         }
 
- 
         private async void takePictureButton_Click(object sender, EventArgs e)
         {
             viewer.Image.Save("test1.jpg");
             await determineIsSameFace(client, "bruce1.jpg", "test1.jpg", RecognitionModel.Recognition04);
         }
+
+        private void comboBoxCOMPorts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void openPortButton_Click(object sender, EventArgs e)
+        {
+            debugTxtBox.AppendText("clicked open port");
+            serialPort1.PortName = comboBoxCOMPorts.Text;
+            serialPort1.Open();
+        }
+
+        private void openLock()
+        {
+            byte[] bytesToSend = {1};
+
+            if (serialPort1.IsOpen)
+            {
+                serialPort1.Write(bytesToSend, 0, 1);
+                debugTxtBox.AppendText("wrote: " + bytesToSend[0]);
+            }
+        }
+
     }
 }
 
