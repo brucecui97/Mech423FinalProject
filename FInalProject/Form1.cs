@@ -188,9 +188,14 @@ namespace FInalProject
             }
         }
 
-        private  void Form1_KeyDown(object sender, KeyEventArgs e)
+        private async void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            debugTxtBox.AppendText("pressed key");
+
+            if (e.KeyCode == Keys.Space)
+            {
+                viewer.Image.Save("test1.jpg");
+                await determineIsSameFace(client, "bruce1.jpg", "test1.jpg", RecognitionModel.Recognition04);
+            }
         }
     }
 }
