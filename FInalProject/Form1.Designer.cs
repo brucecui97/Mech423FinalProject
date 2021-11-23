@@ -43,6 +43,7 @@ namespace FInalProject
             this.debugTxtBox.Location = new System.Drawing.Point(649, 45);
             this.debugTxtBox.Multiline = true;
             this.debugTxtBox.Name = "debugTxtBox";
+            this.debugTxtBox.ReadOnly = true;
             this.debugTxtBox.Size = new System.Drawing.Size(100, 152);
             this.debugTxtBox.TabIndex = 0;
             // 
@@ -95,9 +96,11 @@ namespace FInalProject
             this.Controls.Add(this.takePictureButton);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.debugTxtBox);
+            this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

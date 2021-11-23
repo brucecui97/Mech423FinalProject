@@ -40,7 +40,6 @@ namespace FInalProject
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
             comboBoxCOMPorts.Items.Clear();
             comboBoxCOMPorts.Items.AddRange(SerialPort.GetPortNames());
             if (comboBoxCOMPorts.Items.Count == 0)
@@ -84,8 +83,6 @@ namespace FInalProject
                           }
             Console.WriteLine($"{detectedFaces1.Count} faces detected from image `{sourceImageFileName1}`.");
             Guid sourceFaceId1 = detectedFaces1[0].FaceId.Value;
-
-           
 
             // Verification example for faces of the same person.
             VerifyResult verifyResult1 = client.Face.VerifyFaceToFaceAsync(sourceFaceId1, targetFaceIds[0]).Result;
@@ -191,6 +188,10 @@ namespace FInalProject
             }
         }
 
+        private  void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            debugTxtBox.AppendText("pressed key");
+        }
     }
 }
 
