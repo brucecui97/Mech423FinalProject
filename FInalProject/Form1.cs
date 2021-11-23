@@ -62,15 +62,24 @@ namespace FInalProject
             {
                 // Detect faces from target image url.
                 List<DetectedFace> detectedFaces =  await DetectFaceRecognize(client, imageFileName, recognitionModel03);
+                if (detectedFaces.Count <= 0){
+                    MessageBox.Show("failed");
+                    return false;
+                }
                 targetFaceIds.Add(detectedFaces[0].FaceId.Value);
                 Console.WriteLine($"{detectedFaces.Count} faces detected from image `{imageFileName}`.");
             }
 
             // Detect faces from source image file 1.
             List<DetectedFace> detectedFaces1 =  await DetectFaceRecognize(client, sourceImageFileName1, recognitionModel03);
+            if (detectedFaces1.Count <= 0) { 
+                    MessageBox.Show("failed");
+                    return false;
+                          }
             Console.WriteLine($"{detectedFaces1.Count} faces detected from image `{sourceImageFileName1}`.");
             Guid sourceFaceId1 = detectedFaces1[0].FaceId.Value;
 
+           
 
             // Verification example for faces of the same person.
             VerifyResult verifyResult1 = client.Face.VerifyFaceToFaceAsync(sourceFaceId1, targetFaceIds[0]).Result;
