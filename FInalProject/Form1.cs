@@ -100,6 +100,7 @@ namespace FInalProject
             debugTxtBox.AppendText("is Same Face result is " + verifyResult1.IsIdentical);
             if (verifyResult1.IsIdentical)
             {
+                openLock();
                 MessageBox.Show("authenticated");
             }
             else {
