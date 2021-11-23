@@ -43,6 +43,14 @@ namespace FInalProject
         {
 
             client = Authenticate(ENDPOINT, SUBSCRIPTION_KEY);
+
+            Capture capture = new Capture(); //create a camera captue
+            Application.Idle += new EventHandler(delegate (object o, EventArgs s)
+            {  //run this until application closed (close button click on image viewer)
+                viewer.Image = capture.QueryFrame(); //draw the image obtained from camera
+
+            });
+            viewer.Show(); //show the image viewer
         }
 
         public async Task<Boolean> determineIsSameFace(IFaceClient client, string image1Name, string image2Name, string recognitionModel03)
@@ -75,6 +83,13 @@ namespace FInalProject
 
             Console.WriteLine();
             debugTxtBox.AppendText("is Same Face result is " + verifyResult1.IsIdentical);
+            if (verifyResult1.IsIdentical)
+            {
+                MessageBox.Show("authenticated");
+            }
+            else {
+                MessageBox.Show("failed");
+            }
             return verifyResult1.IsIdentical;
 
         }
@@ -146,22 +161,12 @@ namespace FInalProject
             //IImage myImage = viewer.Image;
             //viewer.Show();
             //myImage.Save("test1.jpg");
-
-            
-            Capture capture = new Capture(); //create a camera captue
-            Application.Idle += new EventHandler(delegate (object o, EventArgs s)
-            {  //run this until application closed (close button click on image viewer)
-                viewer.Image = capture.QueryFrame(); //draw the image obtained from camera
-
-            });
-            viewer.Show(); //show the image viewer
-
-
         }
 
-        private void takePictureButton_Click(object sender, EventArgs e)
+        private async void takePictureButton_Click(object sender, EventArgs e)
         {
             viewer.Image.Save("test1.jpg");
+            await determineIsSameFace(client, "bruce1.jpg", "test1.jpg", RecognitionModel.Recognition04);
         }
     }
 }
