@@ -42,6 +42,8 @@ namespace FInalProject
             {  //run this until application closed (close button click on image viewer)
                 viewer.Image = capture.QueryFrame(); //draw the image obtained from camera
 
+                IImage myImage = viewer.Image;
+                myImage.Save("test.jpg");
                 //so probably do some authentication code here and send open if detect??
             });
             viewer.ShowDialog(); //show the image viewer
