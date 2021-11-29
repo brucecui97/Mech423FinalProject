@@ -35,6 +35,7 @@ namespace FInalProject
             this.takePictureButton = new System.Windows.Forms.Button();
             this.comboBoxCOMPorts = new System.Windows.Forms.ComboBox();
             this.openPortButton = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // debugTxtBox
@@ -75,6 +76,12 @@ namespace FInalProject
             this.openPortButton.UseVisualStyleBackColor = true;
             this.openPortButton.Click += new System.EventHandler(this.openPortButton_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 5000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -101,6 +108,7 @@ namespace FInalProject
         private System.Windows.Forms.Button takePictureButton;
         private System.Windows.Forms.ComboBox comboBoxCOMPorts;
         private System.Windows.Forms.Button openPortButton;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

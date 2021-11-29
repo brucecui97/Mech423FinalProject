@@ -66,9 +66,9 @@ namespace FInalProject
             foreach (var imageFileName in targetImageFileNames)
             {
                 // Detect faces from target image url.
-                List<DetectedFace> detectedFaces =  await DetectFaceRecognize(client, imageFileName, recognitionModel03);
+                List<DetectedFace> detectedFaces = await DetectFaceRecognizeURL(client, "https://mech423.blob.core.windows.net/mech423project/bruce1.jpg", recognitionModel03);
                 if (detectedFaces.Count != 1){
-                    MessageBox.Show("failed");
+                    debugTxtBox.AppendText("failed");
                     return false;
                 }
                 targetFaceIds.Add(detectedFaces[0].FaceId.Value);
@@ -76,10 +76,10 @@ namespace FInalProject
             }
 
             // Detect faces from source image file 1.
-            List<DetectedFace> detectedFaces1 =  await DetectFaceRecognizeURL(client, "https://mech423.blob.core.windows.net/mech423project/bruce1.jpg", recognitionModel03);
-            if (detectedFaces1.Count <= 0) { 
-                    MessageBox.Show("failed");
-                    return false;
+            List<DetectedFace> detectedFaces1 = await DetectFaceRecognize(client, sourceImageFileName1, recognitionModel03);
+            if (detectedFaces1.Count != 1) {
+                debugTxtBox.AppendText("failed");
+                return false;
                           }
             Console.WriteLine($"{detectedFaces1.Count} faces detected from image `{sourceImageFileName1}`.");
             Guid sourceFaceId1 = detectedFaces1[0].FaceId.Value;
@@ -96,10 +96,10 @@ namespace FInalProject
             if (verifyResult1.IsIdentical)
             {
                 openLock();
-                MessageBox.Show("authenticated");
+                debugTxtBox.AppendText("authenticated");
             }
             else {
-                MessageBox.Show("failed");
+                debugTxtBox.AppendText("failed");
             }
             return verifyResult1.IsIdentical;
 
@@ -193,9 +193,18 @@ namespace FInalProject
 
             if (e.KeyCode == Keys.Space)
             {
-                viewer.Image.Save("test1.jpg");
-                await determineIsSameFace(client, "bruce1.jpg", "test1.jpg", RecognitionModel.Recognition04);
+                Guid guid = Guid.NewGuid();
+                viewer.Image.Save(guid + ".jpg");
+                await determineIsSameFace(client, "blablabla.jpg", guid + ".jpg", RecognitionModel.Recognition04);
             }
+        }
+
+        private async  void timer1_Tick(object sender, EventArgs e)
+        {
+            debugTxtBox.AppendText("timer triggered");
+            Guid guid = Guid.NewGuid();
+            viewer.Image.Save(guid + ".jpg");
+            await determineIsSameFace(client, "blablabla.jpg", guid + ".jpg", RecognitionModel.Recognition04);
         }
     }
 }
