@@ -76,8 +76,8 @@ namespace FInalProject
             }
 
             // Detect faces from source image file 1.
-            List<DetectedFace> detectedFaces1 =  await DetectFaceRecognize(client, sourceImageFileName1, recognitionModel03);
-            if (detectedFaces1.Count != 1) { 
+            List<DetectedFace> detectedFaces1 =  await DetectFaceRecognizeURL(client, "https://mech423.blob.core.windows.net/mech423project/bruce1.jpg", recognitionModel03);
+            if (detectedFaces1.Count <= 0) { 
                     MessageBox.Show("failed");
                     return false;
                           }
@@ -138,6 +138,14 @@ namespace FInalProject
             Console.WriteLine($"{detectedFaces.Count} face(s) detected from image `{Path.GetFileName(imageName)}`");
             return detectedFaces.ToList();
         }
+
+        private async static Task<List<DetectedFace>> DetectFaceRecognizeURL(IFaceClient faceClient, string url, string recognition_model)
+        {
+
+            IList<DetectedFace> detectedFaces = await faceClient.Face.DetectWithUrlAsync(url, recognitionModel: recognition_model, detectionModel: DetectionModel.Detection03);
+            return detectedFaces.ToList();
+        }
+
 
         // <snippet_deletepersongroup>
         /*
