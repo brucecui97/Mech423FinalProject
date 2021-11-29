@@ -67,7 +67,7 @@ namespace FInalProject
             {
                 // Detect faces from target image url.
                 List<DetectedFace> detectedFaces =  await DetectFaceRecognize(client, imageFileName, recognitionModel03);
-                if (detectedFaces.Count <= 0){
+                if (detectedFaces.Count !=1){
                     MessageBox.Show("failed");
                     return false;
                 }
@@ -77,7 +77,7 @@ namespace FInalProject
 
             // Detect faces from source image file 1.
             List<DetectedFace> detectedFaces1 =  await DetectFaceRecognize(client, sourceImageFileName1, recognitionModel03);
-            if (detectedFaces1.Count <= 0) { 
+            if (detectedFaces1.Count != 1) { 
                     MessageBox.Show("failed");
                     return false;
                           }
