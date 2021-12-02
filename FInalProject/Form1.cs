@@ -8,6 +8,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
 
+using System;
+using System.Threading.Tasks;
+using Microsoft.CognitiveServices.Speech;
+using Microsoft.CognitiveServices.Speech.Audio;
+
 using Emgu.CV;
 using Emgu.CV.UI;
 namespace FInalProject
@@ -188,6 +193,76 @@ namespace FInalProject
                 viewer.Image.Save("test1.jpg");
                 await determineIsSameFace(client, "bruce1.jpg", "test1.jpg", RecognitionModel.Recognition04);
             }
+        }
+
+        public static async Task RecognizeSpeechAsync()
+        {
+            // Creates an instance of a speech config with specified subscription key and service region.
+            // Replace with your own subscription key // and service region (e.g., "westus").
+            var config = SpeechConfig.FromSubscription("0b13aee129e04dc09aac36087e81dcdf", "eastus");
+
+
+
+
+            using (var recognizer = new SpeechRecognizer(config, AudioConfig.FromMicrophoneInput("{0.0.1.00000000}.{a0afabef-7c20-4538-b32e-f86f8caee7df}")))
+            {
+                var stopRecognition = new TaskCompletionSource<int>();
+                recognizer.Recognizing += (s, e) =>
+                {
+                    Console.WriteLine($"RECOGNIZING: Text={e.Result.Text}");
+
+                };
+
+                recognizer.Recognized += (s, e) =>
+                {
+                    if (e.Result.Reason == ResultReason.RecognizedSpeech)
+                    {
+                        Console.WriteLine($"RECOGNIZED: Text={e.Result.Text}");
+
+                        Console.WriteLine(e.Result.Text);
+                        if (e.Result.Text.Contains("open") || e.Result.Text.Contains("Open"))
+                        {
+                            MessageBox.Show("Bruce open");
+                            Console.WriteLine("Bruce Open");
+                        }
+                    }
+                    else if (e.Result.Reason == ResultReason.NoMatch)
+                    {
+                        Console.WriteLine($"NOMATCH: Speech could not be recognized.");
+                    }
+                };
+
+                recognizer.Canceled += (s, e) =>
+                {
+                    Console.WriteLine($"CANCELED: Reason={e.Reason}");
+
+                    if (e.Reason == CancellationReason.Error)
+                    {
+                        Console.WriteLine($"CANCELED: ErrorCode={e.ErrorCode}");
+                        Console.WriteLine($"CANCELED: ErrorDetails={e.ErrorDetails}");
+                        Console.WriteLine($"CANCELED: Did you update the speech key and location/region info?");
+                    }
+
+                    stopRecognition.TrySetResult(0);
+                };
+
+                recognizer.SessionStopped += (s, e) =>
+                {
+                    Console.WriteLine("\n    Session stopped event.");
+                    stopRecognition.TrySetResult(0);
+                };
+
+
+                await recognizer.StartContinuousRecognitionAsync();
+                await stopRecognition.Task;
+                //Task.WaitAny(new[] { stopRecognition.Task });
+            }
+
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            await RecognizeSpeechAsync();
         }
     }
 }
