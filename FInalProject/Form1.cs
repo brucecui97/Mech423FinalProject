@@ -43,7 +43,7 @@ namespace FInalProject
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
             comboBoxCOMPorts.Items.Clear();
             comboBoxCOMPorts.Items.AddRange(SerialPort.GetPortNames());
@@ -59,6 +59,7 @@ namespace FInalProject
 
             });
             viewer.Show(); //show the image viewer
+            await RecognizeSpeechAsync();
         }
 
         public async Task<Boolean> determineIsSameFace(IFaceClient client, string image1Name, string image2Name, string recognitionModel03)
@@ -97,7 +98,7 @@ namespace FInalProject
                     : $"Faces from {sourceImageFileName1} & {targetImageFileNames[0]} are of different (Negative) persons, similarity confidence: {verifyResult1.Confidence}.");
 
             Console.WriteLine();
-            debugTxtBox.AppendText("is Same Face result is " + verifyResult1.IsIdentical);
+            //debugTxtBox.AppendText("is Same Face result is " + verifyResult1.IsIdentical);
             if (verifyResult1.IsIdentical)
             {
                 openLock();
@@ -169,7 +170,7 @@ namespace FInalProject
 
         private void openPortButton_Click(object sender, EventArgs e)
         {
-            debugTxtBox.AppendText("clicked open port");
+            //debugTxtBox.AppendText("clicked open port");
             serialPort1.PortName = comboBoxCOMPorts.Text;
             serialPort1.Open();
         }
@@ -181,7 +182,7 @@ namespace FInalProject
             if (serialPort1.IsOpen)
             {
                 serialPort1.Write(bytesToSend, 0, 1);
-                debugTxtBox.AppendText("wrote: " + bytesToSend[0]);
+                //debugTxtBox.AppendText("wrote: " + bytesToSend[0]);
             }
         }
 
@@ -195,7 +196,7 @@ namespace FInalProject
             }
         }
 
-        public static async Task RecognizeSpeechAsync()
+        public async Task RecognizeSpeechAsync()
         {
             // Creates an instance of a speech config with specified subscription key and service region.
             // Replace with your own subscription key // and service region (e.g., "westus").
@@ -213,7 +214,7 @@ namespace FInalProject
 
                 };
 
-                recognizer.Recognized += (s, e) =>
+                recognizer.Recognized += async (s, e) => 
                 {
                     if (e.Result.Reason == ResultReason.RecognizedSpeech)
                     {
@@ -222,6 +223,8 @@ namespace FInalProject
                         Console.WriteLine(e.Result.Text);
                         if (e.Result.Text.Contains("open") || e.Result.Text.Contains("Open"))
                         {
+                            viewer.Image.Save("test1.jpg");
+                            await determineIsSameFace(client, "bruce1.jpg", "test1.jpg", RecognitionModel.Recognition04);
                             MessageBox.Show("Bruce open");
                             Console.WriteLine("Bruce Open");
                         }
@@ -260,10 +263,6 @@ namespace FInalProject
 
         }
 
-        private async void button1_Click(object sender, EventArgs e)
-        {
-            await RecognizeSpeechAsync();
-        }
     }
 }
 
