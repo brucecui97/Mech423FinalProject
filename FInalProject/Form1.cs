@@ -202,9 +202,6 @@ namespace FInalProject
             // Replace with your own subscription key // and service region (e.g., "westus").
             var config = SpeechConfig.FromSubscription("0b13aee129e04dc09aac36087e81dcdf", "eastus");
 
-
-
-
             using (var recognizer = new SpeechRecognizer(config, AudioConfig.FromMicrophoneInput("{0.0.1.00000000}.{a0afabef-7c20-4538-b32e-f86f8caee7df}")))
             {
                 var stopRecognition = new TaskCompletionSource<int>();
