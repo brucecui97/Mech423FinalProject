@@ -222,7 +222,6 @@ namespace FInalProject
                         {
                             viewer.Image.Save("D:\\mech421\\Mech423Lab3\\FInalProject\\FInalProject\\bin\\Debug\\test1.jpg");
                             await determineIsSameFace(client, "bruce1.jpg", "test1.jpg", RecognitionModel.Recognition04);
-                            MessageBox.Show("Bruce open");
                             Console.WriteLine("Bruce Open");
                         }
                     }
