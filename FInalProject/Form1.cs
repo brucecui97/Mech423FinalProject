@@ -220,7 +220,7 @@ namespace FInalProject
                         Console.WriteLine(e.Result.Text);
                         if (e.Result.Text.Contains("open") || e.Result.Text.Contains("Open"))
                         {
-                            viewer.Image.Save("test1.jpg");
+                            viewer.Image.Save("D:\\mech421\\Mech423Lab3\\FInalProject\\FInalProject\\bin\\Debug\\test1.jpg");
                             await determineIsSameFace(client, "bruce1.jpg", "test1.jpg", RecognitionModel.Recognition04);
                             MessageBox.Show("Bruce open");
                             Console.WriteLine("Bruce Open");
