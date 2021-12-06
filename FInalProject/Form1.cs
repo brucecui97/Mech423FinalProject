@@ -221,7 +221,13 @@ namespace FInalProject
                         if (e.Result.Text.Contains("open") || e.Result.Text.Contains("Open"))
                         {
                             viewer.Image.Save("D:\\mech421\\Mech423Lab3\\FInalProject\\FInalProject\\bin\\Debug\\test1.jpg");
-                            await determineIsSameFace(client, "bruce1.jpg", "test1.jpg", RecognitionModel.Recognition04);
+                            try
+                            {
+                                await determineIsSameFace(client, "bruce1.jpg", "test1.jpg", RecognitionModel.Recognition04);
+                            }
+                            catch (Exception exception) { 
+                            
+                            }
                             Console.WriteLine("Bruce Open");
                         }
                     }
