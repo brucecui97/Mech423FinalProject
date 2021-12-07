@@ -52,7 +52,7 @@ namespace FInalProject
             else
                 comboBoxCOMPorts.SelectedIndex = 0;
 
-            Capture capture = new Capture(); //create a camera captue
+            Capture capture = new Capture(Emgu.CV.CvEnum.CaptureType.Any); //create a camera captue
             Application.Idle += new EventHandler(delegate (object o, EventArgs s)
             {  //run this until application closed (close button click on image viewer)
                 viewer.Image = capture.QueryFrame(); //draw the image obtained from camera
@@ -64,7 +64,7 @@ namespace FInalProject
 
         public async Task<Boolean> determineIsSameFace(IFaceClient client, string image1Name, string image2Name, string recognitionModel03)
         {
-
+         
             List<string> targetImageFileNames = new List<string> { image1Name };
             string sourceImageFileName1 = image2Name;
 
